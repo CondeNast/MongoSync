@@ -1,0 +1,25 @@
+{
+  "name": "MongoSync",
+  "version": "0.5.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CondeNast/MongoSync"
+  },
+  "author": "Todd Kennedy",
+  "license": "MIT",
+  "keywords": [
+    "mongo",
+    "mongojs",
+    "CondeNast",
+    "backbone",
+    "sync"
+  ],
+  "bugs": {
+    "url": "https://github.com/CondeNast/MongoSync/issues"
+  }
+}
