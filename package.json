@@ -2,7 +2,7 @@
   "name": "mongosync",
   "version": "0.5.0",
   "description": "A Backbone.Sync replacement for persisting data on the backend using MongoJS",
-  "main": "index.js",
+  "main": "mongosync.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test"
   },
