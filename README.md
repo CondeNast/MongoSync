@@ -59,7 +59,11 @@ define(function(require){
 <script src="bower_components/mongosync/mongosync.js"></script>
 ```
 
+Then in your code:
 
+```javascript
+    var MyModel = SharedModel.extend({});
+```
 
 ## Development
 
@@ -69,7 +73,7 @@ Uses grunt to handle development tasks. All grunt tasks are available via `npm r
 
 ## Testing
 
-`npm test`
+`npm test` to run unit tests
 
 ## License
 MongoSync is provided under the terms of the [MIT License](/LICENSE)
