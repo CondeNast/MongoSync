@@ -1,7 +1,7 @@
 {
   "name": "mongosync",
   "version": "0.5.0",
-  "description": "",
+  "description": "A Backbone.Sync replacement for persisting data on the backend using MongoJS",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test"
@@ -23,7 +23,8 @@
     "url": "https://github.com/CondeNast/MongoSync/issues"
   },
   "dependencies": {
-    "mongojs": "~0.7.10"
+    "mongojs": "~0.7.10",
+    "backbone": "~1.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -1,29 +1,40 @@
-// backbone.sync adaptor that uses mongojs to store models
-// returns a q.defer().promise
-'use strict';
-
-var mongojs = require('mongojs');
-var q = require('q');
-
-/**
- * Drop in replacement for node.js allowing Backbone models to be saved to
- * a MongoDB datastore.
+/*
+ * MongoSync
+ * https://github.com/condenast/mongosync
  *
- * @param  {Object} config
- *         @param {String} db_server location to the server instance
- *         @param {String} db_collection Name of the collection
- * @return {Object}        `q.promise` "then-able"
+ * Copyright (c) 2013 Condé Nast. All rights reserved.
  */
-module.exports = function(config){
 
-  if(config && (!config.db_server || !config.db_collection)){
-    throw new Error('You must pass in a config object with db_server and db_collection defined');
+(function(){
+  'use strict';
+
+  var root = this;
+  var SharedModel;
+  var server;
+  var collection;
+
+  if(typeof exports !== 'undefined'){
+    module.exports = function(s, c){
+      server = s;
+      collection = c;
+      Backbone.Sync = sync;
+      return SharedModel;
+    };
+  } else {
+    root.SharedModel = SharedModel;
   }
 
-  return function (method, model, options) {
+  var Backbone = root.Backbone;
+  if(!Backbone && (typeof require !== 'undefined')){
+    Backbone = require('backbone');
+  }
+
+  function sync(method, model, options) {
+    var mongojs = require('mongojs');
+    var q = require('q');
     var d = q.defer();
-    var db = mongojs(config.db_server);
-    var collection = db.collection(config.db_collection);
+    var db = mongojs(server);
+    var collection = db.collection(collection);
 
     var db_callback = function (err, response) {
       if (err) {
@@ -63,7 +74,8 @@ module.exports = function(config){
     }
 
     return d.promise;
-  };
-}
+  }
 
+  SharedModel = Backbone.Model.extend({});
 
+}).call(this);
