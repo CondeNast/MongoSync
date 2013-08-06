@@ -15,9 +15,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        'index.js',
-        'browser.js',
-        'server.js',
+        'mongosync.js',
         'test/**/*js'
       ]
     },

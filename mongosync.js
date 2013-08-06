@@ -29,13 +29,13 @@
 
     var model = Backbone.Model.extend({idAttribute: '_id'});
     return model;
-  }
+  };
 
   if(typeof exports !== 'undefined'){
     module.exports =  SharedModel;
   } else if (typeof define === 'function' && define.amd ){
     define(function(){
-      return SharedModel
+      return SharedModel;
     });
   } else {
     global.SharedModel = SharedModel;
