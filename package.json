@@ -1,6 +1,6 @@
 {
   "name": "mongosync",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Backbone.Sync replacement for persisting data on the backend using MongoJS",
   "main": "mongosync.js",
   "scripts": {
