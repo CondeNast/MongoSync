@@ -28,7 +28,7 @@ describe('mongosync', function(){
         existing_model.set(fixture);
         q(existing_model.save()).then(function(data){
             existing_model.set(data);
-            existing_id = data._id;
+            existing_id = data._id.toString(16);
             done();
         });
     });
@@ -53,11 +53,33 @@ describe('mongosync', function(){
         existing_model.set('title', new_title);
 
         q(existing_model.save()).then(function(data){
-            if(data._id === existing_id && data.title === new_title){
-                console.log('yo');
+            if(data._id.toString(16) === existing_id && data.title === new_title){
                 done();
             } else {
                 var err = new Error('Expected '+data._id+' to be '+existing_id+' and '+data.title+' to be '+new_title);
+                done(err);
+            }
+        }, function(err){
+            done(err);
+        });
+    });
+
+    it('Should delete an object in the database', function(done){
+        q(existing_model.destroy()).then(function(data){
+            done();
+        }, function(err){
+            done(err);
+        });
+    });
+
+    it('Should get an existing object', function(done){
+        var m = new SharedModel();
+        m.set('_id', existing_id);
+        q(m.fetch()).then(function(data){
+            if(data._id.toString(16) === existing_id){
+                done();
+            } else {
+                var err = new Error('Expected '+data._id+' to be '+existing_id);
                 done(err);
             }
         }, function(err){
