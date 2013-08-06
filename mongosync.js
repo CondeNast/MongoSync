@@ -21,7 +21,7 @@
   SharedModel = function(db, coll){
     // this part can only run on the backend, `process.browser` is from browserify
     // and allows browserify to determine it's on the server
-    if(!process.browser && typeof exports !== 'undefined'){
+    if(typeof process !== 'undefined' && !process.browser && typeof exports !== 'undefined'){
       server_name = db;
       collection_name = coll;
       Backbone.sync = sync;
@@ -38,7 +38,7 @@
       return SharedModel
     });
   } else {
-    root.SharedModel = SharedModel;
+    global.SharedModel = SharedModel;
   }
 
   function sync(method, model, options) {

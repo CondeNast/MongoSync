@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CondeNast/MongoSync.png)](https://travis-ci.org/CondeNast/MongoSync)
+
 # MongoSync
 
 A drop-in Backbone.Sync replacement for persisting data on the backend.
