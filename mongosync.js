@@ -10,25 +10,49 @@
 
   var global = this;
   var SharedModel;
-  var server;
-  var collection;
+  var server_name;
+  var collection_name;
 
   var Backbone = global.Backbone;
   if(!Backbone && (typeof require !== 'undefined')){
     Backbone = require('backbone');
   }
 
+  SharedModel = function(db, coll){
+    // this part can only run on the backend, `process.browser` is from browserify
+    // and allows browserify to determine it's on the server
+    if(!process.browser && typeof exports !== 'undefined'){
+      server_name = db;
+      collection_name = coll;
+      Backbone.sync = sync;
+    }
+
+    var model = Backbone.Model.extend({idAttribute: '_id'});
+    return model;
+  }
+
+  if(typeof exports !== 'undefined'){
+    module.exports =  SharedModel;
+  } else if (typeof define === 'function' && define.amd ){
+    define(function(){
+      return SharedModel
+    });
+  } else {
+    root.SharedModel = SharedModel;
+  }
+
   function sync(method, model, options) {
     var mongojs = require('mongojs');
     var q = require('q');
     var d = q.defer();
-    var db = mongojs(server);
-    var collection = db.collection(collection);
+    var db = mongojs(server_name);
+    var collection = db.collection(collection_name);
 
     var db_callback = function (err, response) {
       if (err) {
         d.reject(err);
       }
+
       if (response === 1) {
         d.resolve(model.toJSON());
       } else {
@@ -65,24 +89,5 @@
     return d.promise;
   }
 
-  SharedModel = function(db, coll){
-    // this part can only run on the backend, `process.browser` is from browserify
-    if(!process.browser && typeof exports !== 'undefined'){
-      server = s;
-      collection = c;
-      Backbone.Sync = sync;
-    }
-    return Backbone.Model.extend({});
-  }
-
-  if(typeof exports !== 'undefined'){
-    module.exports =  SharedModel;
-  } else if (typeof define === 'function' && define.amd ){
-    define(function(){
-      return SharedModel
-    });
-  } else {
-    root.SharedModel = SharedModel;
-  }
 
 }).call(this);

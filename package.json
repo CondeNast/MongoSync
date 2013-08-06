@@ -30,6 +30,8 @@
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.9",
     "grunt-simple-mocha": "~0.4.0",
-    "grunt-contrib-jshint": "~0.6.2"
+    "grunt-contrib-jshint": "~0.6.2",
+    "chai": "~1.7.2",
+    "randomstring": "~1.0.2"
   }
 }
