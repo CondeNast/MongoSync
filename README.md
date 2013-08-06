@@ -12,47 +12,43 @@ or
 
 `bower install mongosync`
 
+## Interface
+
+MongoSync returns a function which then returns a context-aware Backbone model. It's wrapped in a function so that the sync method can be given the correct db location and collection to use.
+
 ## Using with RequireJS
 
-You'll need to shim this to get it working with RequireJS (like you did jQuery & Backbone already)
+It will detect if you're in an AMD situation and provide the appropriate `define` for RequireJS. You will also need [amdefine](https://github.com/jrburke/amdefine) in your project.
+
+Example:
 
 ```javascript
-requirejs.config({
-    paths: {
-        'jquery': 'path/to/jquery',
-        'underscore': 'path/to/underscore',
-        'backbone': 'path/to/backbone',
-        'mongosync': 'path/to/mongosync'
-    },
-    shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'mongosync': {
-            deps: ['backbone'],
-            exports': 'SharedModel'
-        },
-        'underscore': {
-            'exports': '_'
-        }
-    }
-});
-```
 
-Then in your code:
+if(typeof define !== 'function'){
+    define = require('amdefine')(module);
+}
 
-```javascript
 define(function(require){
-    var Model = require('mongosync');
+    var SharedModel = require('mongosync')('localhost', 'test');
 
-    var MyModel = Model.extend({});
+    var MyModel = SharedModel.extend({});
 
     return MyModel;
 });
 ```
 
-## Using without RequireJS (not recommended)
+## Using in CommonJS (including Browserify)
+
+```javascript
+
+var SharedModel = require('mongosync')('localhost', 'test');
+
+var MyModel = SharedModel.extend({});
+
+module.exports = MyModel;
+```
+
+## Browser Global (not recommended)
 
 ```html
 <!-- script tags for backbone and underscore appear here -->
@@ -62,7 +58,7 @@ define(function(require){
 Then in your code:
 
 ```javascript
-    var MyModel = SharedModel.extend({});
+var MyModel = SharedModel().extend({});
 ```
 
 ## Development

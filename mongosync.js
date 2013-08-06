@@ -66,7 +66,8 @@
   }
 
   SharedModel = function(db, coll){
-    if(!process.browser && (typeof db !== 'undefined' && typeof coll !== 'undefined')){
+    // this part can only run on the backend, `process.browser` is from browserify
+    if(!process.browser && typeof exports !== 'undefined'){
       server = s;
       collection = c;
       Backbone.Sync = sync;
