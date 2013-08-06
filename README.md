@@ -62,6 +62,7 @@ var MyModel = SharedModel().extend({});
 ```
 
 ## Development
+To install the dependencies:
 
 `npm install`
 
@@ -69,7 +70,9 @@ Uses grunt to handle development tasks. All grunt tasks are available via `npm r
 
 ## Testing
 
-`npm test` to run unit tests
+`npm test` to run unit tests.
+
+You will need a mongodb server running somewhere to run the tests...
 
 ## License
 MongoSync is provided under the terms of the [MIT License](/LICENSE)
