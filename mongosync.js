@@ -8,23 +8,12 @@
 (function(){
   'use strict';
 
-  var root = this;
+  var global = this;
   var SharedModel;
   var server;
   var collection;
 
-  if(typeof exports !== 'undefined'){
-    module.exports = function(s, c){
-      server = s;
-      collection = c;
-      Backbone.Sync = sync;
-      return SharedModel;
-    };
-  } else {
-    root.SharedModel = SharedModel;
-  }
-
-  var Backbone = root.Backbone;
+  var Backbone = global.Backbone;
   if(!Backbone && (typeof require !== 'undefined')){
     Backbone = require('backbone');
   }
@@ -76,6 +65,23 @@
     return d.promise;
   }
 
-  SharedModel = Backbone.Model.extend({});
+  SharedModel = function(db, coll){
+    if(!process.browser && (typeof db !== 'undefined' && typeof coll !== 'undefined')){
+      server = s;
+      collection = c;
+      Backbone.Sync = sync;
+    }
+    return Backbone.Model.extend({});
+  }
+
+  if(typeof exports !== 'undefined'){
+    module.exports =  SharedModel;
+  } else if (typeof define === 'function' && define.amd ){
+    define(function(){
+      return SharedModel
+    });
+  } else {
+    root.SharedModel = SharedModel;
+  }
 
 }).call(this);
