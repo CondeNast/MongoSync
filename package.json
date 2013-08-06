@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "mongojs": "~0.7.10",
-    "backbone": "~1.0.0"
+    "backbone": "~1.0.0",
+    "q": "~0.9.6"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
