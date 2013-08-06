@@ -32,13 +32,21 @@ module.exports = function (grunt) {
       all: {
         src: 'test/*back.js'
       }
+    },
+    mocha: {
+      index: ['test/index.html'],
+      options: {
+        log: true,
+        run: true
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
+  grunt.loadNpmTasks('grunt-mocha');
 
   grunt.registerTask('default', ['jshint', 'simplemocha']);
 
-  grunt.registerTask('test', ['simplemocha']);
+  grunt.registerTask('test', ['simplemocha', 'mocha']);
 };

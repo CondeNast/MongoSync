@@ -1,6 +1,6 @@
 {
   "name": "mongosync",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "A Backbone.Sync replacement for persisting data on the backend using MongoJS",
   "main": "mongosync.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "grunt-simple-mocha": "~0.4.0",
     "grunt-contrib-jshint": "~0.6.2",
     "chai": "~1.7.2",
-    "randomstring": "~1.0.2"
+    "randomstring": "~1.0.2",
+    "grunt-mocha": "~0.4.1"
   }
 }
